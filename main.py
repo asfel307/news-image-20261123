@@ -1,25 +1,25 @@
-#!/usr/bin/env python3
-"""Ship the pre-rendered front page for make.fun.
+"""Menyalin gambar berita hari ini ke folder keluaran make.fun.
 
-Standard library only. Copies entry.png from beside this file into
-$MAKEFUN_OUTPUT_DIR/entry.png (falling back to /output), byte for byte.
-Deterministic: the same input file always produces the same output file.
+Skrip kecil ini tidak mengubah gambar sama sekali: ia hanya
+menyalin ulang entry.png byte demi byte dari samping skrip ini
+ke direktori keluaran yang diminta.
 """
 
 import os
 import shutil
+import sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 
-
-def main():
-    src = os.path.join(HERE, "entry.png")
+def main() -> int:
+    here = os.path.dirname(os.path.abspath(__file__))
+    source = os.path.join(here, "entry.png")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
-    dst = os.path.join(out_dir, "entry.png")
-    shutil.copyfile(src, dst)
-    print("copied", src, "->", dst)
+    target = os.path.join(out_dir, "entry.png")
+    shutil.copyfile(source, target)
+    print(f"Menyalin {source} -> {target}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
